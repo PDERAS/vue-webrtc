@@ -210,6 +210,10 @@ exports.default = {
     turnServer: {
       type: String,
       default: null
+    },
+    defaultDisableVideo: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {},
@@ -254,7 +258,8 @@ exports.default = {
       if (found === undefined) {
         var video = {
           id: stream.streamid,
-          muted: stream.type === 'local'
+          muted: stream.type === 'local',
+          class: stream.type === 'local' ? 'local-video' : 'other-video'
         };
 
         that.videoList.push(video);
@@ -268,6 +273,10 @@ exports.default = {
         for (var i = 0, len = that.$refs.videos.length; i < len; i++) {
           if (that.$refs.videos[i].id === stream.streamid) {
             that.$refs.videos[i].srcObject = stream.stream;
+            console.log('defaultDisableVideo', that.defaultDisableVideo);
+            if (stream.type === 'local' && that.defaultDisableVideo) {
+              that.$emit('toggle-video-streaming');
+            }
             break;
           }
         }
@@ -289,6 +298,7 @@ exports.default = {
 
   methods: {
     join: function join() {
+      console.log('joining 2...');
       var that = this;
       this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
         if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
@@ -6646,6 +6656,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       key: item.id,
       staticClass: "video-item",
+      class: item.class,
       attrs: {
         "video": item
       }

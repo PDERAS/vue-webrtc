@@ -1,9 +1,10 @@
 <template>
-  <div class="video-list" > 
+  <div class="video-list"> 
       <div v-for="item in videoList"
           v-bind:video="item"
           v-bind:key="item.id"
-          class="video-item">
+          class="video-item"
+          :class="item.class">
         <video controls autoplay playsinline ref="videos" :height="cameraHeight" :muted="item.muted" :id="item.id"></video>
       </div>
   </div>
@@ -65,6 +66,10 @@
       turnServer: {
         type: String,
         default: null
+      },
+      defaultDisableVideo: {
+        type: Boolean,
+        default: false
       }
     },
     watch: {
@@ -110,7 +115,8 @@
         if (found === undefined) {
           let video = {
             id: stream.streamid,
-            muted: stream.type === 'local'
+            muted: stream.type === 'local',
+            class: stream.type === 'local' ? 'local-video' : 'other-video'
           };
 
           that.videoList.push(video);
@@ -125,6 +131,9 @@
             if (that.$refs.videos[i].id === stream.streamid)
             {
               that.$refs.videos[i].srcObject = stream.stream;
+              if (stream.type === 'local' && that.defaultDisableVideo) {
+                that.$emit('toggle-video-streaming');
+              }
               break;
             }
           }
