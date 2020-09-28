@@ -1,12 +1,12 @@
 {
-  "name": "vue-webrtc",
+  "name": "@pderas/vue-webrtc",
   "version": "1.3.0",
   "description": "WebRTC video component for Vue.js",
   "main": "dist/index.js",
   "author": {
-    "name": "Andy Weston",
-    "email": "aweston@westonsoftware.com",
-    "url": "https://github.com/westonsoftware"
+    "name": "PDERAS",
+    "email": "support@pderas.com",
+    "url": "https://github.com/PDERAS/vue-webrtc"
   },
   "contributors": [],
   "scripts": {
@@ -22,9 +22,12 @@
     "url-parse": "^1.4.7",
     "vue": "^2.6.11"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/westonsoftware/vue-webrtc"
+    "url": "git@github.com:PDERAS/vue-webrtc.git"
   },
   "license": "MIT",
   "devDependencies": {
