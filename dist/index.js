@@ -273,7 +273,6 @@ exports.default = {
         for (var i = 0, len = that.$refs.videos.length; i < len; i++) {
           if (that.$refs.videos[i].id === stream.streamid) {
             that.$refs.videos[i].srcObject = stream.stream;
-            console.log('defaultDisableVideo', that.defaultDisableVideo);
             if (stream.type === 'local' && that.defaultDisableVideo) {
               that.$emit('toggle-video-streaming');
             }
@@ -298,7 +297,6 @@ exports.default = {
 
   methods: {
     join: function join() {
-      console.log('joining 2...');
       var that = this;
       this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
         if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
